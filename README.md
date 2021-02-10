@@ -74,7 +74,7 @@ import Vimos
     // ...
     
     override func viewDidAppear(_ animated: Bool) {
-         let kyc = KycController(delegate: self)
+        let kyc = KycController(delegate: self)
         kyc.modalPresentationStyle = .fullScreen
         kyc.url = "ENTER URL"
         kyc.licenceKey   = "ENTER LICENSE KEY"
