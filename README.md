@@ -27,13 +27,7 @@ Once you have the license , follow the below instructions for a successful integ
 ## Requirements
 
 - Swift 5.0
-- iOS 11.0+
-
-## Permission
-
-In Info.plist file add following code to allow your application to access iPhone's camera:
-``<key>NSCameraUsageDescription</key>
-<string>Allow access to camera</string>``
+- iOS 13.0+
 
 ## Installation
 
@@ -43,13 +37,12 @@ In Info.plist file add following code to allow your application to access iPhone
 You can use [CocoaPods](http://cocoapods.org/) to install `captus` by adding it to your `Podfile`:
 
 ```ruby
-source 'https://gitlab.com/frslabs-public/ios/captus-ios.git'
+source 'https://gitlab.com/frslabs-public/ios/vimos-ios'
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '12.0'
+platform :ios, '13.0'
 target '<Your Target Name>' do
 use_frameworks!
-pod 'Captus', '1.3.0'
-pod 'Alamofire', '~> 4.9.1'
+pod 'Vimos', ‘1.0.0’
 end
 ```
 
@@ -60,7 +53,7 @@ You will need a valid netrc credentials to install captus from maven, which can 
 1. Create or edit .netrc file under current user's home directory
 2. Write the below lines into that file, replace <YOUR_USERNAME> and <YOUR_PASSWORD> with your credentials which is shared through email and save the file.
 ```ruby
-machine captus-ios.repo.frslabs.space
+machine vimos-ios.repo.frslabs.space
 login <YOUR_USERNAME>
 password <YOUR_PASSOWRD>
 ```
@@ -68,40 +61,30 @@ password <YOUR_PASSOWRD>
 
    pod install or pod update.
 
-4. Connect with physical device to build and run captus, It will not build/run in simulator due to camera dependency.
+4. Connect with physical device to build and run vimos, It will not build/run in simulator due to camera dependency.
 
-To get the full benefits import `captus` wherever you import UIKit
+To get the full benefits import `vimos` wherever you import UIKit
 
 ``` swift
 import UIKit
-import Captus
+import Vimos
 ```
 
 ## Getting Started
 
 ### Swift
 
-1. Invoke Captus SDK
+1. Invoke Vimos SDK
 
 ```swift
     // ...
     
     override func viewDidAppear(_ animated: Bool) {
-          let ocrVC = OCRNavigationViewController(delegate: self)
-          ocrVC.modalPresentationStyle = .fullScreen
-          ocrVC.licenceKey = "LICENSE_KEY"
-          ocrVC.baseURL = "BASE_URL"
-          ocrVC.referenceID =  "SERVER_REFENENCE_ID"
-          ocrVC.serverHeader = "SERVER_HEADER"
-          ocrVC.idSides = 1    // 1 or 2 based on ID sides
-          ocrVC.documentType = CaptusDocument.PAN.rawValue    // used while capturing for IDs
-          ocrVC.isAutomatic = true      // true for capturing ID images, false for Egypt API
-          if ocrVC.isOCR == true{       // if invoking SDK for Egypt API
-            ocrVC.serverHeader = serverHeader
-          }else{                       // if invoking for capturing IDs Images
-            ocrVC.serverHeader = ""
-          }
-          present(ocrVC, animated: true)
+         let kyc = KycController(delegate: self)
+        kyc.modalPresentationStyle = .fullScreen
+        kyc.customerLink = "ENTER CUSTOMER LINK"
+        kyc.licenceKey   = "ENTER LICENSE KEY"
+        present(kyc, animated: false)
       }
     // ...    
 ```
@@ -111,52 +94,16 @@ import Captus
 ```swift
 class YourViewController: UIViewController,OCRDelegate {
 
-  func captusSuccessResponse(ocr: OCRNavigationViewController, didFinishOcrWithResult results: CaptusResults) {
-        let amlCheck = results.amlCheckStatus
-        // Will return Array of images path
-        let imagePath = results.imagePath
-        // Will return Array of image reference Id
-        let imageReferenceId = results.imageReferenceId
+   func vimosController(_ callerContoller: KycController, didFinishWithResults results: VimosResults) {
+        print("VIMOS : SUCCESS")
     }
-    func captusFailureResponse(ocr: OCRNavigationViewController, didFailWithError error: String) {
-        // Error
-        let error =  error
+    func vimosController(_ callerContoller: KycController, didFailWithError error: Int) {
+        print("VIMOS : FAILURE")
     }
   
 }
 ```
-## Captus Parameters
-   Types of Documents:
- 
-- `ocrVC.documentType = CaptusDocument.PAN.rawValue ` ***(Required)***
-  
-  Sets the Document which has to be scanned. Possible values are, 
-  
-  | Value          | Effect                 |
-  | -------------- | ---------------------- |
-  | CaptusDocument.PAN   | Pan Card               |
-  | CaptusDocument.PPT   | Passport               |
-  | CaptusDocument.ADR   | Aadhaar Card           |
-  | CaptusDocument.VID   | Voter ID               |
-  | CaptusDocument.DRV   | Driving Licence        |
-  
- ## Captus Error Codes
-
-   Following error codes will be returned on the `onCaptusFailure` method of the callback
-
-   | CODE | DESCRIPTION                  |
-   | ---- | ---------------------------- |
-   | 801  | Scan Time Out               |
-   | 803  | Camera permission denied    |
-   | 804  | Capture interrupted            |
-   | 805  | Captus SDK License has expired             |
-   | 806  | Captus SDK License is invalid             |
-   | 901  | Network error               |
-   | 902  | Image upload failed                  |
-   | 1001 | Error parsing result         |
-
-
-   Sets the Captus SDK apiCredentials . Obtain the appropriate api credentials through a REST API call , for details about     the REST API, contact `support@frslabs.com`
+   Sets the Captus SDK apiCredentials . Obtain the appropriate api credentials through a REST API call , for details about the REST API, contact `support@frslabs.com`
 
 
    ## Help
