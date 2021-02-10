@@ -36,7 +36,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '13.0'
 target '<Your Target Name>' do
 use_frameworks!
-pod 'Vimos', ‘1.0.0’
+pod 'Vimos',  ‘1.0.0’
 end
 ```
 
