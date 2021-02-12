@@ -1,5 +1,7 @@
 # Vimos iOS SDK
 
+The Vimos iOS SDK is a realtime Video KYC solution for iOS in **Swift**
+
 ![version](https://img.shields.io/badge/version-v1.0.0-blue)
 
 You can find the release history at [Changelog](CHANGELOG.md)
