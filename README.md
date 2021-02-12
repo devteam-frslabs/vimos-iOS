@@ -12,6 +12,7 @@ You can find the release history at [Changelog](CHANGELOG.md)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Getting Started](#getting-started)
+- [Vimos Error Codes](#captus-error-codes)
 - [Help](#help)
 
 ## Prerequisite
@@ -99,6 +100,18 @@ class YourViewController: UIViewController,VimosResponseDelegate {
   
 }
 ```
+
+ ## Captus Error Codes
+
+   Following error codes will be returned on the `didFailWithError` method of the callback
+
+   | CODE | DESCRIPTION                  |
+   | ---- | ---------------------------- |
+   | 1001  | Vimos SDK License has expired             |
+   | 1002  | Vimos SDK License is invalid             |
+   | 1050  | Invalid Vimos URL provided         |
+   
+   
    Sets the Vimos SDK apiCredentials . Obtain the appropriate api credentials through a REST API call , for details about the REST API, contact `support@frslabs.com`
 
 
