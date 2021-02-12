@@ -101,7 +101,7 @@ class YourViewController: UIViewController,VimosResponseDelegate {
 }
 ```
 
- ## Captus Error Codes
+ ## Vimos Error Codes
 
    Following error codes will be returned on the `didFailWithError` method of the callback
 
